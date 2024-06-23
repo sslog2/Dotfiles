@@ -1,0 +1,41 @@
+cmd open ${{
+  case $(file --mime-type $f -b) in
+  application/pdf) setsid -f zathura $fx >/dev/null 2>&1 ;;
+    image/vnd.djvu|application/octet-stream) setsid -f mupdf $fx >/dev/null 2>&1 ;;
+    text/*) $EDITOR $fx ;;
+    application/pdf|application/vnd*|application/epub*) setsid -f mupdf $fx >/dev/null 2>&1 ;;
+    *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
+  esac
+}}
+
+cmd mkfile ${{
+	printf "File Name: "
+	read ans
+	$EDITOR $ans
+}}
+
+cmd delete ${{
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+	printf "%s\n\t" "$fx"
+	printf "delete?[y/N]"
+	read ans
+	[ $ans = "y" ] && rm -rf -- $fx
+}}
+
+set ignorecase true
+set drawbox
+set hidden
+set icons
+set number
+set relativenumber
+set shell zsh
+
+set previewer ctpv
+set cleaner ctpvclear
+&ctpv -s $id
+&ctpvquit $id
+
+map <enter> open
+map D delete
+map M mkfile
