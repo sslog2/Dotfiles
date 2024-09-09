@@ -1,0 +1,1 @@
+../../../../dotfiles/.config/nvim/lua/plugins/Lf-nvim.lua
