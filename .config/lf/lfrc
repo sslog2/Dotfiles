@@ -1,11 +1,19 @@
 cmd open ${{
   case $(file --mime-type $f -b) in
-    application/pdf) setsid -f zathura $fx >/dev/null 2>&1 ;;
-    image/vnd.djvu|application/octet-stream) setsid -f mupdf $fx >/dev/null 2>&1 ;;
-    text/*) $EDITOR $fx ;;
-    application/json) $EDITOR $fx ;;  # Adiciona suporte para JSON
-    application/pdf|application/vnd*|application/epub*) setsid -f mupdf $fx >/dev/null 2>&1 ;;
-    *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
+    application/pdf)
+      setsid -f zathura $fx >/dev/null 2>&1 ;;
+    
+    image/vnd.djvu|application/octet-stream)
+      setsid -f mupdf $fx >/dev/null 2>&1 ;;
+    
+    text/*|application/*)
+      $EDITOR $fx ;;  # Open with editor (nvim if EDITOR is set)
+
+    application/vnd*|application/epub*)
+      setsid -f zathura $fx >/dev/null 2>&1 ;;  # use zathura for epub and other document types
+    
+    *)
+      setsid -f ${editor:-nvim} $f >/dev/null 2>&1 ;;  # default to nvim or editor for other files
   esac
 }}
 

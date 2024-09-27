@@ -2408,6 +2408,6 @@ include ~/.config/kitty/theme/gruvbox_dark.conf
 
 
 # BEGIN_KITTY_THEME
-# Gruvbox Dark Hard
+# Jellybeans
 include current-theme.conf
 # END_KITTY_THEME

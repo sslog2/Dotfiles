@@ -22,6 +22,7 @@ export PATH=$PATH:$GOPATH/bin
 #Editor & Defaults 
 export EDITOR='nvim'
 export OPENER='xdg-open'
+export BROWSER="brave"
 # Add in Powerlevel10k
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
@@ -71,7 +72,7 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # Aliases
-alias ls='ls --color'
+alias ls='lsd'
 alias vim='nvim'
 alias c='clear'
 # Shell integrations
